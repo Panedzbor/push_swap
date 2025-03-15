@@ -15,11 +15,21 @@
 
 # include "./libft/libft.h"
 
+
+
 typedef struct s_stack
 {
     int x;
     struct s_stack *next;
     struct s_stack *prev;
 } t_stack;
+
+extern unsigned int test;
+
+void    sort(t_stack **Afirst, t_stack **Bfirst, unsigned int size);
+void    s(t_stack **Afirst, t_stack **Bfirst, char mode);
+void    push(t_stack **Afirst, t_stack **Bfirst, char mode);
+void    rotate(t_stack **Afirst, t_stack **Bfirst, char mode);
+void    rev_rotate(t_stack **Afirst, t_stack **Bfirst, char mode);
 
 #endif
