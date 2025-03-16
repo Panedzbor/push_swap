@@ -15,6 +15,7 @@
 static t_stack *create_list(int argc, char *argv[]);
 void    init_struct(t_stack *last, t_stack *new, char *numstr);
 unsigned int    count_size(t_stack *first);
+void    assign_pos(t_stack *first, unsigned int size);
 
 unsigned int test = 0;
 
@@ -28,7 +29,10 @@ int main(int argc, char *argv[])
     Afirst = create_list(argc, argv);
     Bfirst = NULL;
     size = count_size(Afirst);
-    sort(&Afirst, &Bfirst, size);
+    assign_pos(Afirst, size);
+    //bubblesort(&Afirst, &Bfirst, size);
+    //minsort(&Afirst, &Bfirst, size);
+    radixsort(&Afirst, &Bfirst, size);
     temp = Afirst;
     while (temp->next != Afirst)
     {
@@ -77,6 +81,7 @@ void    init_struct(t_stack *last, t_stack *new, char *numstr)
 
     num = ft_atoi(numstr);
     new->x = num;
+    new->p = 0;
     new->next = NULL;
     if (!last)
     {
@@ -102,4 +107,27 @@ unsigned int    count_size(t_stack *first)
         temp = temp->next;
     }
     return (i);
+}
+
+void    assign_pos(t_stack *first, unsigned int size)
+{
+    t_stack         *temp;
+    t_stack         *min;
+    unsigned int    pos;
+
+    if (!first)
+        return ;
+    pos = 1;
+    while (pos <= size)
+    {
+        min = first;
+        temp = first->next;
+        while (temp != first)
+        {
+            if ((temp->x < min->x && temp->p == 0) || min->p > 0)
+                min = temp;
+            temp = temp->next;
+        }
+        min->p = pos++; 
+    }   
 }

@@ -15,7 +15,7 @@ NAME = push_swap
 
 # complier and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I. -Ilibft/
+CFLAGS = -g -Wall -Wextra -Werror -I. -Ilibft/
 LFLAGS = -Llibft
 LLIBS = -lft
 
