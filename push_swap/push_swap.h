@@ -34,5 +34,6 @@ void    s(t_stack **Afirst, t_stack **Bfirst, char mode);
 void    push(t_stack **Afirst, t_stack **Bfirst, char mode);
 void    rotate(t_stack **Afirst, t_stack **Bfirst, char mode);
 void    rev_rotate(t_stack **Afirst, t_stack **Bfirst, char mode);
+void printstacks(t_stack *Afirst, t_stack *Bfirst);
 
 #endif

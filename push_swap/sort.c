@@ -12,6 +12,8 @@
 
 #include "push_swap.h"
 
+int checkpush(t_stack *first, int val, unsigned int size, unsigned int pos);
+
 void    bubblesort(t_stack **Afirst, t_stack **Bfirst, unsigned int size)
 {
   //  t_stack         *constfirst;
@@ -71,16 +73,14 @@ void    minsort(t_stack **Afirst, t_stack **Bfirst, unsigned int size)
         push(Afirst, Bfirst, 'a');
 }
 
-
 void    radixsort(t_stack **Afirst, t_stack **Bfirst, unsigned int size)
 {
     unsigned int    maxbits;
     unsigned int    i;
     unsigned int    j;
     unsigned int count = 0;
-    unsigned int count2;
     char mode;
-    t_stack         *cur;
+
 
     maxbits = 0;
     i = size;
@@ -99,20 +99,15 @@ void    radixsort(t_stack **Afirst, t_stack **Bfirst, unsigned int size)
             while (j < size)
             {
                 if ((((*Afirst)->p >> i) & 1) == 0)
-                    {push(Afirst, Bfirst, 'b');count++;}
+                {
+                    if (!checkpush(*Afirst, 0, size, j) && !*Bfirst)
+                        break ;
+                    push(Afirst, Bfirst, 'b');
+                    count++;
+                }
                 else
                 {
-                    cur = *Afirst;
-                    count2 = 0;
-                    while (((cur->p >> i) & 1) != 0)
-                    {
-                        cur = cur->next;
-                        count2++;
-                    }
-                    if (count2 <= size / 2)
                         rotate(Afirst, Bfirst, 'a');
-                    else
-                        rev_rotate(Afirst, Bfirst, 'a');
                 }
                 j++;
             }
@@ -123,20 +118,15 @@ void    radixsort(t_stack **Afirst, t_stack **Bfirst, unsigned int size)
             while (j < size)
             {
                 if ((((*Bfirst)->p >> i) & 1) == 1)
-                    {push(Afirst, Bfirst, 'a');count++;}
+                {
+                    if (!checkpush(*Bfirst, 1, size, j) && !*Afirst)
+                        break ;
+                    push(Afirst, Bfirst, 'a');
+                    count++;
+                }
                 else
                 {
-                    cur = *Bfirst;
-                    count2 = 0;
-                    while (((cur->p >> i) & 1) != 0)
-                    {
-                        cur = cur->next;
-                        count2++;
-                    }
-                    if (count2 <= size / 2)
-                        rotate(Afirst, Bfirst, 'b');
-                    else
-                        rev_rotate(Afirst, Bfirst, 'b');///!!!!!
+                        rotate(Afirst, Bfirst, 'b'); 
                 }
                 j++;
             }
@@ -154,3 +144,80 @@ void    radixsort(t_stack **Afirst, t_stack **Bfirst, unsigned int size)
         i++;
     }
 }
+
+void printstacks(t_stack *Afirst, t_stack *Bfirst)
+{
+    t_stack *temp = Afirst;
+    printf("A: ");
+    if (Afirst)
+    {
+        while (temp->next != Afirst)
+        {
+            printf("%d ", temp->p);
+            temp = temp->next;
+        }
+        printf("%d", temp->p);
+    }
+    printf("\n");
+    temp = Bfirst;
+    printf("B: ");
+    if (Bfirst)
+    {
+        while (temp->next != Bfirst)
+        {
+            printf("%d ", temp->p);
+            temp = temp->next;
+        }
+        printf("%d", temp->p);
+    }
+    printf("\n");fflush(stdout);
+}
+
+int checkpush(t_stack *first, int val, unsigned int size, unsigned int pos)
+{
+    //unsigned int    i;
+    t_stack         *curr;
+    bool            flag;
+
+    curr = first;
+    /* i = 0;
+    while (i <= pos)
+    {
+        curr = curr->next;
+        i++;
+    } */
+    flag = true;
+    while (pos < size)
+    {
+        if ((((curr->p >> pos) & 1) == (unsigned int)val) && !flag)
+            return (1);
+        if (((curr->p >> pos) & 1) != (unsigned int)val)
+            flag = false;
+        curr = curr->next;
+        pos++;
+    }
+    return (0);
+}
+
+void    turksort(t_stack **Afirst, t_stack **Bfirst, unsigned int size)
+{
+    //if 3 or less => go with another algorythm
+    unsigned int    i;
+    unsigned int    count;
+    t_stack         *cur;
+
+    i = 1;
+    while (i < size)
+    {
+        push(Afirst, Bfirst, 'b');
+        i++;
+    } 
+}
+
+//cycle through each num in A
+//count steps to bring to top
+//count steps to rotate B
+//if rotation is in same direction, deduct the smaller amount from sum of rotations
+//+push
+//push the cheapest
+//stop

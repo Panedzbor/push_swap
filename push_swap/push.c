@@ -35,7 +35,7 @@ void    push(t_stack **Afirst, t_stack **Bfirst, char mode)
     buf[1] = mode;
     buf[2] = '\n';
     buf[3] = '\0';
-    write(1, buf, 3);test++;
+    write(1, buf, 3);test++;printstacks(*Afirst, *Bfirst);
 }
 
 t_stack *removefromlist(t_stack **list)
