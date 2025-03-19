@@ -12,40 +12,26 @@
 
 #include "push_swap.h"
 
-static t_stack *create_list(int argc, char *argv[]);
-void    init_struct(t_stack *last, t_stack *new, char *numstr);
-unsigned int    count_size(t_stack *first);
-void    assign_pos(t_stack *first, unsigned int size);
-
-unsigned int test = 0;
+static t_stack  *create_list(int argc, char *argv[]);
+void            init_struct(t_stack *last, t_stack *new, char *numstr);
+void            assign_pos(t_stack *first, int size);
+void            free_stack(t_stack **Afirst);
 
 int main(int argc, char *argv[])
 {
-    t_stack         *Afirst;
-    t_stack         *Bfirst;
-    t_stack         *temp;
-    unsigned int    size;
+    t_stack *Afirst;
+    t_stack *Bfirst;
+    t_stks  stacks;
+    int     size;
 
+    checkinput(argc, argv);
     Afirst = create_list(argc, argv);
     Bfirst = NULL;
-    size = count_size(Afirst);
+    save_stacks(&stacks, &Afirst, &Bfirst);
+    size = argc - 1;
     assign_pos(Afirst, size);
-    //bubblesort(&Afirst, &Bfirst, size);
-    //minsort(&Afirst, &Bfirst, size);
-    radixsort(&Afirst, &Bfirst, size);
-    temp = Afirst;
-    while (temp->next != Afirst)
-    {
-        printf("%d\n", temp->x);fflush(stdout);
-        temp = temp->next;
-    }
-    printf("%d\n", temp->x);fflush(stdout);
-    while (temp != Afirst)
-    {
-        temp = temp->prev;
-        free((void *)temp->next);
-    }
-    free((void *)temp);printf("instruct count: %u\n", test);
+    radixsort(&stacks, size);
+    free_stack(&Afirst);
     return (0);
 }
 
@@ -63,13 +49,15 @@ static t_stack *create_list(int argc, char *argv[])
     {
         temp = (t_stack *)ft_calloc(1, sizeof(t_stack));
         if (!temp)
-            exit (-1);
+            errorexit(-2);
         init_struct(last, temp, argv[i]);
         if (!first)
             first = temp;
         last = temp;
         i++;
     }
+    if (!first)
+        errorexit(-2);
     last->next = first;
     first->prev = last;
     return (first);
@@ -92,31 +80,14 @@ void    init_struct(t_stack *last, t_stack *new, char *numstr)
     new->prev = last;
 }
 
-unsigned int    count_size(t_stack *first)
+void    assign_pos(t_stack *first, int size)
 {
-    unsigned int    i;
-    t_stack         *temp;
+    t_stack *temp;
+    t_stack *min;
+    int     pos;
 
     if (!first)
-        return (0);
-    temp = first;
-    i = 1;
-    while (temp->next != first)
-    {
-        i++;
-        temp = temp->next;
-    }
-    return (i);
-}
-
-void    assign_pos(t_stack *first, unsigned int size)
-{
-    t_stack         *temp;
-    t_stack         *min;
-    unsigned int    pos;
-
-    if (!first)
-        return ;
+        errorexit(-3);
     pos = 1;
     while (pos <= size)
     {
@@ -128,6 +99,22 @@ void    assign_pos(t_stack *first, unsigned int size)
                 min = temp;
             temp = temp->next;
         }
-        min->p = pos++; 
-    }   
+        min->p = pos++;
+    }
+}
+
+void    free_stack(t_stack **Afirst)
+{
+    t_stack         *temp;
+
+    temp = (*Afirst)->prev;
+    while (temp != *Afirst)
+    {
+        temp = temp->prev;
+        free((void *)temp->next);
+        temp->next = NULL;
+    }
+    free((void *)temp);
+    temp = NULL;
+    *Afirst = NULL;
 }

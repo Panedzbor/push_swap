@@ -33,7 +33,7 @@ $(NAME): libft $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) $(LFLAGS) $(LLIBS) -o $(NAME)
 
 %.o: %.c push_swap.h
-	$(CC) $(CFLAGS) -c $< $(LFLAGS) $(LLIBS) -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	$(MAKE) clean -C ./libft

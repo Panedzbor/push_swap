@@ -11,13 +11,13 @@
 /* ************************************************************************** *//////////////////////
 
 #include "push_swap.h"
-extern unsigned int test;
+/*extern unsigned int test;*/
 void    swap(t_stack **first)
 {
     t_stack *last;
     t_stack *b;
     t_stack *c;
-    
+
     if (!*first)
         return ;
     if ((*first)->next == (*first)->prev)
@@ -54,7 +54,7 @@ void    s(t_stack **Afirst, t_stack **Bfirst, char mode)
     buf[1] = mode;
     buf[2] = '\n';
     buf[3] = '\0';
-    write(1, buf, 3);test++;printstacks(*Afirst, *Bfirst);
+    write(1, buf, 3);/*test++;printstacks(*Afirst, *Bfirst);*/
 }
 
 

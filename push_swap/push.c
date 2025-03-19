@@ -15,12 +15,12 @@
 t_stack *removefromlist(t_stack **list);
 t_stack *removefromlist2(t_stack **list);
 void    addtolist(t_stack **list, t_stack *temp);
-extern unsigned int test;
+/*extern unsigned int test;*/
 void    push(t_stack **Afirst, t_stack **Bfirst, char mode)
 {
     t_stack *temp;
     char    buf[4];
-    
+
     if (mode == 'a')
     {
         temp = removefromlist(Bfirst);
@@ -35,13 +35,13 @@ void    push(t_stack **Afirst, t_stack **Bfirst, char mode)
     buf[1] = mode;
     buf[2] = '\n';
     buf[3] = '\0';
-    write(1, buf, 3);test++;printstacks(*Afirst, *Bfirst);
+    write(1, buf, 3);/*test++;printstacks(*Afirst, *Bfirst);*/
 }
 
 t_stack *removefromlist(t_stack **list)
 {
     t_stack *temp;
-    
+
     temp = NULL;
     if (!*list)
         return temp;
