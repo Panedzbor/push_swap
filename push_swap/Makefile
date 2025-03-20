@@ -20,7 +20,7 @@ LFLAGS = -Llibft
 LLIBS = -lft
 
 # files
-SOURCES = push_swap.c push.c swap.c rotate.c sort.c
+SOURCES = push_swap.c push.c swap.c rotate.c sort.c checks.c utils.c
 OBJECTS = $(SOURCES:.c=.o)
 
 # rules

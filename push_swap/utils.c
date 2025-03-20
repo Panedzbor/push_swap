@@ -12,16 +12,37 @@
 
 #include "push_swap.h"
 
+int countbits(int *maxbits, int size)
+{
+    int i;
+
+    i = size;
+    while (i > 0)
+    {
+        (*maxbits)++;
+        i >>= 1;
+    }
+    return (i);
+}
+
 void    errorexit(int val)
 {
     write(2, "Error\n", 6);
     exit(val);
 }
 
-void    save_stacks(t_stks *stacks, t_stack **A, t_stack **B)
+t_stks    *save_stacks(t_stks *stacks, t_stack **A, t_stack **B)
 {
-    stacks->A = A;
-    stacks->B = B;
+    static t_stks   *holder;
+
+    if (!holder)
+        holder = stacks;
+    if (stacks)
+    {
+        stacks->A = A;
+        stacks->B = B;
+    }
+    return (holder);
 }
 
 

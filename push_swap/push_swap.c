@@ -13,7 +13,7 @@
 #include "push_swap.h"
 
 static t_stack  *create_list(int argc, char *argv[]);
-void            init_struct(t_stack *last, t_stack *new, char *numstr);
+void            init_struct(t_stack *last, t_stack *new, char *numstr, int stack_size);
 void            assign_pos(t_stack *first, int size);
 void            free_stack(t_stack **Afirst);
 
@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     save_stacks(&stacks, &Afirst, &Bfirst);
     size = argc - 1;
     assign_pos(Afirst, size);
-    radixsort(&stacks, size);
+    radixsort(size);
     free_stack(&Afirst);
     return (0);
 }
@@ -50,7 +50,7 @@ static t_stack *create_list(int argc, char *argv[])
         temp = (t_stack *)ft_calloc(1, sizeof(t_stack));
         if (!temp)
             errorexit(-2);
-        init_struct(last, temp, argv[i]);
+        init_struct(last, temp, argv[i], argc - 1);
         if (!first)
             first = temp;
         last = temp;
@@ -63,13 +63,14 @@ static t_stack *create_list(int argc, char *argv[])
     return (first);
 }
 
-void    init_struct(t_stack *last, t_stack *new, char *numstr)
+void    init_struct(t_stack *last, t_stack *new, char *numstr, int stack_size)
 {
     int     num;
 
     num = ft_atoi(numstr);
     new->x = num;
     new->p = 0;
+    new->size = stack_size;
     new->next = NULL;
     if (!last)
     {
