@@ -46,9 +46,9 @@ fclean: clean
 re: fclean all
 
 test:
-	ARG=`cat ../numbers.txt`; valgrind ./push_swap $$ARG
-	ARG=`cat ../numbers.txt`; ./push_swap $$ARG | ../checker_linux $$ARG
-	ARG=`cat ../numbers.txt`; ./push_swap $$ARG | wc -l
+	ARG="`cat ../numbers.txt`"; valgrind ./push_swap $$ARG
+	ARG="`cat ../numbers.txt`"; ./push_swap $$ARG | ../checker_linux $$ARG
+	ARG="`cat ../numbers.txt`"; ./push_swap $$ARG | wc -l
 	cat ../result.txt
 	@echo "\n"
 

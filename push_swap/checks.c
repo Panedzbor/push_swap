@@ -33,7 +33,7 @@ int    checkinput(int argc, char *argv[])
         j = 0;
         while (argv[i][j] != '\0')
         {
-            if (!ft_isdigit(argv[i][j]))
+            if (!ft_isdigit(argv[i][j]) && !(argv[i][j] == '-' && j == 0))
                 errorexit(-1);
             j++;
         }
