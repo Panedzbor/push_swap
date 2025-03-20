@@ -31,6 +31,7 @@ int main(int argc, char *argv[])
     size = argc - 1;
     assign_pos(Afirst, size);
     radixsort(size);
+    record_result(Afirst);
     free_stack(&Afirst);
     return (0);
 }

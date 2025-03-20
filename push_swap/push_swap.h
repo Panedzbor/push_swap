@@ -14,6 +14,7 @@
 # define PUSH_SWAP_H
 
 # include "./libft/libft.h"
+# include <fcntl.h>
 
 typedef struct s_stack
 {
@@ -39,4 +40,5 @@ int     checkinput(int argc, char *argv[]);
 int     countbits(int *maxbits, int size);
 t_stks  *save_stacks(t_stks *stacks, t_stack **A, t_stack **B);
 void    errorexit(int val);
+void    record_result(t_stack *Afirst);
 #endif

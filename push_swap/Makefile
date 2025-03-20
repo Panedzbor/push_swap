@@ -20,7 +20,7 @@ LFLAGS = -Llibft
 LLIBS = -lft
 
 # files
-SOURCES = push_swap.c push.c swap.c rotate.c sort.c checks.c utils.c
+SOURCES = push_swap.c push.c swap.c rotate.c sort.c checks.c utils.c testing.c
 OBJECTS = $(SOURCES:.c=.o)
 
 # rules
@@ -45,6 +45,13 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re libft
+test:
+	ARG=`cat ../numbers.txt`; valgrind ./push_swap $$ARG
+	ARG=`cat ../numbers.txt`; ./push_swap $$ARG | ../checker_linux $$ARG
+	ARG=`cat ../numbers.txt`; ./push_swap $$ARG | wc -l
+	cat ../result.txt
+	@echo "\n"
+
+.PHONY: all clean fclean re libft test
 
 
