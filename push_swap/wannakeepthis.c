@@ -65,33 +65,5 @@ void    bubblesort(t_stack **Afirst, t_stack **Bfirst, unsigned int size)
     }
 }
 
-void    minsort(t_stack **Afirst, t_stack **Bfirst, unsigned int size)
-{
-    unsigned int    i;
-    unsigned int    count;
-    t_stack         *cur;
 
-    i = 1;
-    while (i < size)
-    {
-        cur = *Afirst;
-        count = 0;
-        while (cur->p != i)
-        {
-            cur = cur->next;
-            count++;
-        }
-        while ((*Afirst)->p != i)
-        {
-            if ((size - count) >= size / 2)
-                rotate(Afirst, Bfirst, 'a');
-            else
-                rev_rotate(Afirst, Bfirst, 'a');
-        }
-        push(Afirst, Bfirst, 'b');
-        i++;
-    }
-    while (*Bfirst)
-        push(Afirst, Bfirst, 'a');
-}
 */

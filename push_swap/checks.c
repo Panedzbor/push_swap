@@ -12,119 +12,121 @@
 
 #include "push_swap.h"
 
-#define intmax "2147483647"
-#define intmin "-2147483648"
+#define INTMAX "2147483647"
+#define INTMIN "-2147483648"
 
-static int checkoverflow(char *num);
-static int checkmax(char *num, int len);
-static int checkmin(char *num, int len);
-static int checkduplicates(int size, char *stack[], char *num);
+static int	checkoverflow(char *num);
+static int	checkmax(char *num, int len);
+static int	checkmin(char *num, int len);
+static int	checkduplicates(int size, char *stack[], char *num);
 
-int    checkinput(int argc, char *argv[])
+int	checkinput(int argc, char *argv[])
 {
-    int i;
-    int j;
+	int		i;
+	int		j;
 
-    if (argc < 2)
-        errorexit(-1);
-    i = 1;
-    while (i < argc)
-    {
-        j = 0;
-        while (argv[i][j] != '\0')
-        {
-            if (!ft_isdigit(argv[i][j]) && !(argv[i][j] == '-' && j == 0))
-                errorexit(-1);
-            j++;
-        }
-        if (!checkoverflow(argv[i]))
-            errorexit(-1);
-        if (!checkduplicates(argc, argv, argv[i]))
-            errorexit(-1);
-        i++;
-    }
-    return (1);
+	if (argc < 2)
+		return (0);
+	i = 1;
+	while (i < argc)
+	{
+		j = 0;
+		while (argv[i][j] != '\0')
+		{
+			if (!ft_isdigit(argv[i][j]) && !(argv[i][j] == '-' && j == 0))
+				errorexit(-1);
+			j++;
+		}
+		if (!checkoverflow(argv[i]))
+			errorexit(-1);
+		if (!checkduplicates(argc, argv, argv[i]))
+			errorexit(-1);
+		i++;
+	}
+	if (check_if_sorted(argc, argv))
+		return (0);
+	return (1);
 }
 
-static int checkoverflow(char *num)
+static int	checkoverflow(char *num)
 {
-    int len;
+	int	len;
 
-    len = ft_strlen(num);
-    if (num[0] != '-')
-    {
-        if (!checkmax(num, len))
-            return (0);
-    }
-    else
-    {
-        if (!checkmin(num, len))
-            return (0);
-    }
-    return (1);
+	len = ft_strlen(num);
+	if (num[0] != '-')
+	{
+		if (!checkmax(num, len))
+			return (0);
+	}
+	else
+	{
+		if (!checkmin(num, len))
+			return (0);
+	}
+	return (1);
 }
 
-static int checkmax(char *num, int len)
+static int	checkmax(char *num, int len)
 {
-    int i;
+	int	i;
 
-    if (len > 10)
-            return (0);
-    else if(len == 10)
-    {
-        i = 0;
-        while (i < 10)
-        {
-            if (num[i] > intmax[i])
-                return (0);
-            i++;
-        }
-    }
-    return (1);
+	if (len > 10)
+		return (0);
+	else if (len == 10)
+	{
+		i = 0;
+		while (i < 10)
+		{
+			if (num[i] > INTMAX[i])
+				return (0);
+			i++;
+		}
+	}
+	return (1);
 }
 
-static int checkmin(char *num, int len)
+static int	checkmin(char *num, int len)
 {
-    int i;
+	int	i;
 
-    if (len > 11)
-            return (0);
-    else if (len == 11)
-    {
-        i = 1;
-        while (i < 11)
-        {
-            if (num[i] > intmin[i])
-                return (0);
-            i++;
-        }
-    }
-    return (1);
+	if (len > 11)
+		return (0);
+	else if (len == 11)
+	{
+		i = 1;
+		while (i < 11)
+		{
+			if (num[i] > INTMIN[i])
+				return (0);
+			i++;
+		}
+	}
+	return (1);
 }
 
-static int checkduplicates(int size, char *stack[], char *num)
+static int	checkduplicates(int size, char *stack[], char *num)
 {
-    int i;
-    int matches;
-    int len1;
-    int len2;
-    int lenmax;
+	int	i;
+	int	matches;
+	int	len1;
+	int	len2;
+	int	lenmax;
 
-    len1 = ft_strlen(num);
-    matches = 0;
-    i = 1;
-    while (i < size)
-    {
-        len2 = ft_strlen(stack[i]);
-        if (len1 >= len2)
-            lenmax = len1;
-        else
-            lenmax = len2;
-        if (!ft_strncmp(num, stack[i], lenmax))
-            matches++;
-        if (matches > 1)
-            return (0);
-        i++;
-    }
-    return (1);
+	len1 = ft_strlen(num);
+	matches = 0;
+	i = 1;
+	while (i < size)
+	{
+		len2 = ft_strlen(stack[i]);
+		if (len1 >= len2)
+			lenmax = len1;
+		else
+			lenmax = len2;
+		if (!ft_strncmp(num, stack[i], lenmax))
+			matches++;
+		if (matches > 1)
+			return (0);
+		i++;
+	}
+	return (1);
 }
