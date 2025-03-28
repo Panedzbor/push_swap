@@ -32,10 +32,12 @@ int	main(int argc, char *argv[])
 	save_stacks(&stacks, &afirst, &bfirst);
 	size = argc - 1;
 	assign_pos(afirst, size);
-	if (size > 35)
+	if (size > 40)
 		radixsort(size);
-	else
+	else if (size > 3)
 		minsort(&afirst, &bfirst, size);
+	else
+		sortthree(&afirst, &bfirst, size);
 	check_recording_poss(afirst);
 	free_stack(&afirst);
 	return (0);

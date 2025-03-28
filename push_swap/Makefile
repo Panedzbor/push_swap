@@ -20,8 +20,8 @@ LFLAGS = -Llibft
 LLIBS = -lft
 
 # files
-SRC1 = push_swap.c push.c swap.c rotate.c sort.c minsort.c checks.c check_if_sorted.c utils.c
-SRC2 = push_swap.c push.c swap.c rotate.c sort.c minsort.c checks.c check_if_sorted.c utils.c ../testing.c
+SRC1 = push_swap.c push.c swap.c rotate.c sort.c minsort.c sortthree.c checks.c check_if_sorted.c utils.c
+SRC2 = push_swap.c push.c swap.c rotate.c sort.c minsort.c sortthree.c checks.c check_if_sorted.c utils.c ../testing.c
 SOURCES = $(SRC1)
 OBJECTS = $(SOURCES:.c=.o)
 

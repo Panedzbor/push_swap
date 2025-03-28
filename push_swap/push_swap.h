@@ -33,6 +33,7 @@ typedef struct s_stks
 
 void	radixsort(int size);
 void	minsort(t_stack **afirst, t_stack **bfirst, int size);
+void	sortthree(t_stack **afirst, t_stack **bfirst, int size);
 void	s(t_stack **afirst, t_stack **bfirst, char mode);
 void	push(t_stack **afirst, t_stack **bfirst, char mode);
 void	rotate(t_stack **afirst, t_stack **bfirst, char mode);

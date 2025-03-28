@@ -20,17 +20,20 @@ void	minsort(t_stack **afirst, t_stack **bfirst, int size)
 {
 	int		i;
 	int		count;
+	int		pushed;
 	t_stack	*cur;
 
 	i = 1;
+	pushed = 0;
 	while (size - i >= 2)
 	{
 		cur = *afirst;
 		count = 0;
 		cur = findmin(cur, i, &count);
 		while ((*afirst)->p != i)
-			rotation_direction(size, count, afirst, bfirst);
+			rotation_direction(size - pushed, count, afirst, bfirst);
 		push(afirst, bfirst, 'b');
+		pushed++;
 		i++;
 	}
 	if ((*afirst)->p > (*afirst)->next->p)
